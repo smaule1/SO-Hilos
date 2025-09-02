@@ -1,0 +1,27 @@
+Pipes and FIFOs (also known as named pipes) provide a
+unidirectional interprocess communication channel.  A pipe has a
+read end and a write end.  Data written to the write end of a pipe
+can be read from the read end of the pipe. A pipe is created using pipe(2), which creates a new pipe and
+returns two file descriptors, one referring to the read end of the
+pipe, the other referring to the write end.  Pipes can be used to
+create a communication channel between related processes (Kerrisk, 2024a).
+
+Normal pipes are useful to transfer information among related procesess. Named pipes or FIFOs are useful because they can be accessed by unrelated processes. FIFOs and pipes lack functionality for complex IPC tasks.
+
+mmap() creates a new mapping in the virtual address space of the
+calling process.  The starting address for the new mapping is
+specified in addr.  The length argument specifies the length of
+the mapping  (Kerrisk, 2024b).
+
+Memory mapped files can be very useful, especially on systems that don’t support shared memory segments. In fact, the two are very similar in most respects. (Memory mapped files are committed to disk, too, so this could even be an advantage. With file locking or semaphores, data in a memory mapped file can easily be shared between multiple processes (Hall, 2025).
+
+Pipes are the right tool for the task because the communication will be between related processes created with fork() and the communication can be unidirectional. The MMAP technique is excessively complex for this task and it only brings difficulties, i.e, the need of some synchronization technique.
+
+
+
+
+Bibliography
+
+Kerrisk, M. (2024a). pipe(7) — Linux manual page. man7. https://man7.org/linux/man-pages/man7/pipe.7.html
+Kerrisk, M. (2024b). mmap(2) — Linux manual page. man7. https://man7.org/linux/man-pages/man7/pipe.7.html
+Hall, B. (2025). Beej's Guide to Interprocess Communication. Beej's Guides. https://beej.us/guide/bgipc/html/#pipes
